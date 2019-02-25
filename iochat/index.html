@@ -19,6 +19,10 @@
     #messageArea {
       display: none;
     }
+
+    .card-body {
+      margin-bottom: 15px;
+    }
   </style>
 </head>
 
@@ -36,27 +40,29 @@
         </form>
       </div>
     </div>
+
     <div id="messageArea" class="row">
       <div class="col-md-4">
-        <div class="well">
+        <div class="card card-body bg-light">
           <h3>Online Users</h3>
           <ul class="list-group" id='users'></ul>
         </div>
-        <div class=" col-md-8">
-          <div class="chat" id="chat"></div>
+      </div>
+      <div class=" col-md-8">
+        <div class="chat" id="chat"></div>
 
 
-          <form id="messageForm">
-            <div class="form-group">
-              <label>Enter Message</label>
-              <textarea class="form-control" id="message"></textarea>
-              <br />
-              <input type="submit" class="btn btn-primary" value="send Message">
-            </div>
-          </form>
-        </div>
+        <form id="messageForm">
+          <div class="form-group">
+            <label>Enter Message</label>
+            <textarea class="form-control form-control-lg" id="message"></textarea>
+            <br />
+            <input type="submit" class="btn btn-primary" value="send Message">
+          </div>
+        </form>
       </div>
     </div>
+  </div>
   </div>
   </div>
   <script>
@@ -80,7 +86,7 @@
       });
 
       socket.on('new message', function (data) {
-        $chat.append('<div class="well"><strong>' + data.user + '</strong>:' + data.msg + '</div>')
+        $chat.append('<div class="card card-body bg-light"><strong>' + data.user + '</strong> ' + data.msg + '</div>')
       })
 
 
