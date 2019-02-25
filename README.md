@@ -1,2 +1,2 @@
 # beocde-node-socketio
-Chat application with Heroku and Websockets
+Simple chat application with Heroku and Websockets
