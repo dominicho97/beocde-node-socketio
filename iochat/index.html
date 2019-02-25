@@ -5,11 +5,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>IO chat</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    body {
+      margin-top: 30px
+    }
+  </style>
 </head>
 
 <body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="well">
+          <h3>Online Users</h3>
+          <ul class="list-group" id='users'></ul>
 
+          <div class=" col-md-8">
+            <div class="chat" id="chat">
+              <form id="messageForm">
+                <div class="form-group">
+                  <label>Enter Message</label>
+                  <textarea class="form-control" id="message">
+
+                  </textarea>
+                  <br />
+                  <input type="submit" class="btn-btn-primary" value="sendMessage">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+
+      $(function () {
+        const socket = io.connect()
+      });
+    </script>
 </body>
 
 </html>

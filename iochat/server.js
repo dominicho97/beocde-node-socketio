@@ -13,3 +13,17 @@ console.log('Server running...')
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html')
 })
+
+//conect with sockets
+io.sockets.on('connection', function (socket) {
+  connections.push(socket);
+  console.log('Connected: %s sockets connected', connections.length)
+
+  //Disconnect
+  socket.on('disconnect', function (data) {
+    connections.splice(connections.indexOf(socket), 1) // show how many connected left
+    console.log('Disconnected: %s sockets connected', connections.length);
+  })
+
+});
+
