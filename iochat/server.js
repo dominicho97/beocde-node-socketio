@@ -1,10 +1,32 @@
+//HEROKU 
+/*
+const express = require('express');
+const app = express();
+
+//set port
+const port = process.env.PORT 3000
+
+app.use(express.static(__dirname));
+
+//routes
+app.get('/', function (req, res) {
+  res.render("index");
+})
+
+app.listen(port, function(){
+  console.log("app running")
+});*/
+
+
+
+
 const express = require('express');
 const app = express();
 
 const server = require('http').createServer(app);
 const io = require('socket.io').listen(server)
 
-let users = [];
+const users = [];
 const connections = [];
 
 server.listen(process.env.PORT || 3000)
@@ -21,6 +43,9 @@ io.sockets.on('connection', function (socket) {
 
   //Disconnect
   socket.on('disconnect', function (data) {
+
+    users.splice(users.indexOf(socket.username), 1);
+    updateUsernames();
     connections.splice(connections.indexOf(socket), 1) // show how many connected left
     console.log('Disconnected: %s sockets connected', connections.length);
   })
@@ -28,10 +53,18 @@ io.sockets.on('connection', function (socket) {
 
   //Send Message
   socket.on('send message', function (data) {
-    console.log(data);
-    io.sockets.emit('new message', { msg: data })
+    io.sockets.emit('new message', { msg: data, user: socket.username })
   })
 
-
+  //New user
+  socket.on('new user', function (data, callback) {
+    callback(true);
+    socket.username = data;
+    users.push(socket.username)
+    updateUsernames();
+  });
+  function updateUsernames() {
+    io.sockets.emit('get users', users)
+  }
 });
 
