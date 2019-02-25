@@ -35,7 +35,7 @@
 
                   </textarea>
                   <br />
-                  <input type="submit" class="btn-btn-primary" value="sendMessage">
+                  <input type="submit" class="btn-btn-primary" value="send Message">
                 </div>
               </form>
             </div>
@@ -46,7 +46,22 @@
     <script>
 
       $(function () {
-        const socket = io.connect()
+        const socket = io.connect();
+        const $messageForm = $('#messageForm');
+        const $message = $('#message');
+        const $chat = $('#chat');
+
+
+
+        $messageForm.submit(function (e) {
+          e.preventDefault();
+          socket.emit('send message', $message.val())
+          $message.val('')
+
+        })
+        socket.on('new message', function (data) {
+          $chat.append('<div class="well">' + data.msg + '></data></div>')
+        })
       });
     </script>
 </body>

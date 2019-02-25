@@ -25,5 +25,13 @@ io.sockets.on('connection', function (socket) {
     console.log('Disconnected: %s sockets connected', connections.length);
   })
 
+
+  //Send Message
+  socket.on('send message', function (data) {
+    console.log(data);
+    io.sockets.emit('new message', { msg: data })
+  })
+
+
 });
 
